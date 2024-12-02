@@ -4,6 +4,7 @@ import os
 left_locations_ids = []
 right_locations_ids = []
 
+#input = open("input_example.txt", "r")
 input = open("input.txt", "r")
 
 for line in input:
