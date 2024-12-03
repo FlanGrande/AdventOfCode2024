@@ -1,7 +1,7 @@
 import os
 
-#input = open("input_example.txt", "r")
-input = open("input.txt", "r")
+input = open("input_example.txt", "r")
+#input = open("input.txt", "r")
 
 reports = []
 safe_reports = 0
@@ -20,36 +20,26 @@ for report in reports:
         continue
 
     # If it's sorted, then it's potentially safe
-    if sorted(report) == report:
-        current_level = report[0]
-        has_problem_dampener_triggered = False
+    current_level = report[0]
+    has_problem_dampener_triggered = False
 
-        for i in range(1, len(report)):
-            difference = abs(current_level - report[i])
+    for i in range(1, len(report)):
+        difference = abs(current_level - report[i])
+        
+        if difference <= 0 or difference > 3:
+            if not has_problem_dampener_triggered:
+                current_level = report[i]
+                print("DIFFERENCE " + str(difference))
+                print("TRIGGERED " + str(current_level))
+                continue
             
-            if difference <= 0 or difference > 3:
-                is_safe = False
-                print("NOT SAFE: Low to High")
-                print(report)
-                print()
-                break
-            else:
-                current_level = report[i]
-    elif sorted(report, reverse = True) == report:
-        current_level = report[0]
-        has_problem_dampener_triggered = False
-
-        for i in range(1, len(report)):
-            difference = abs(current_level - report[i])
-
-            if difference <= 0 or difference > 3:
-                is_safe = False
-                print("NOT SAFE: High to Low")
-                print(report)
-                print()
-                break
-            else:
-                current_level = report[i]
+            is_safe = False
+            print("NOT SAFE: Low to High")
+            print(report)
+            print()
+            break
+        else:
+            current_level = report[i]
     
     if is_safe:
         print("SAFE:")
